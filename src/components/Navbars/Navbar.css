@@ -1,0 +1,29 @@
+.navbar-horizontal .navbar-nav .nav-link{
+    color: black;
+    font-size:17px;
+    font-weight: 700;
+}
+.login-button-color{
+    background: linear-gradient(to right, #751177, #3D203E);
+}
+.signUp-button-color{
+    background: linear-gradient(to right, #281BBF, #3328AE);
+}
+.auth-button{
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    color: white;
+    border-radius: 50px;
+    font-size:15px;
+}
+.navbar-horizontal .navbar-brand img{
+    height:100px
+}
+.user-navbar{
+    box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.1);
+}
+.navbar-search .input-group{
+    border: 1px solid #751177 ;
+}

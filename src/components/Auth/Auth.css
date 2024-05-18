@@ -1,0 +1,30 @@
+.card-shadow{
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.05); /* Black color box shadow */;
+    border-radius: 30px;
+}
+.signup-input{
+    border-bottom: 1px solid rgba(40, 27, 191, 1)!important;
+}
+.login-input{
+    border-bottom: 1px solid rgba(117, 17, 119, 1)!important;
+}
+.login-text {
+    color: #B4B5B5 !important;
+    font-size: 15px !important;
+    font-weight: 600;
+}
+.signup-text {
+    color: #9ba2a2 !important;
+    font-size: 14px !important;
+    font-style: Poppins;
+}
+.signup-link {
+    color: rgba(40, 27, 191, 1);
+    font-style: Poppins;
+    font-weight: 600;
+}
+.login-link {
+    color: rgba(117, 17, 119, 1);
+    font-style: Poppins;
+    font-weight: 600;
+}

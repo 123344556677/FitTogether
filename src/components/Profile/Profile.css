@@ -1,0 +1,31 @@
+.profile-img{
+height: 135px;
+width: 130px;
+}
+.goat-label{
+    color:rgba(96, 96, 96, 1);
+    font-weight: 600;
+}
+.location{
+    color: #3328AE
+}
+.line-color{
+    background-color:#751177 ;
+}
+.read-more-button{
+color: #751177;
+font-weight: 600;
+cursor: pointer;
+}
+.video-item {
+  position: relative;
+  overflow: hidden;
+  width: 315px; /* You can adjust the width of the video item */
+  height: 560px; /* You can adjust the height of the video item */
+  margin: 5px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.1);
+  /* border: 2px solid #751177 ; */
+}
+
+

@@ -1,0 +1,16 @@
+.sidebar{
+    background: linear-gradient(to bottom, rgb(7, 2, 56), rgb(40, 1, 40));
+    border-radius: 0px 30px 30px 0px;
+
+}
+.navbar-vertical.navbar-expand-md .navbar-brand-img{
+    max-height:80px!important;
+}
+.nav-links{
+    color: white!important;
+    font-size: 20px!important;
+
+}
+.navbar-vertical.navbar-expand-md .navbar-nav .nav-link.active:before{
+    border-left: 2px solid white
+}

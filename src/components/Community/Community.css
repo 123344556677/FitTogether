@@ -1,0 +1,23 @@
+.community-video-item {
+  position: relative;
+  overflow: hidden;
+  /* width: 600px; You can adjust the width of the video item */
+  height: 380px; /* You can adjust the height of the video item */
+  margin: 5px;
+  border-radius: 10px;
+  /* box-shadow: 2px 2px 4px 2px rgba(0, 0, 0, 0.1); */
+  /* border: 2px solid #751177 ; */
+}
+.community-profile-img{
+border-radius: 50%;
+object-fit: cover;
+height: 60px;
+width: 60px;
+}
+
+.community-icons{
+    width:30px;
+    height: 30px;
+    cursor: pointer;
+
+}
