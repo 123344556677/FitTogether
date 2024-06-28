@@ -3,6 +3,11 @@
     font-size:17px;
     font-weight: 700;
 }
+.navbar-horizontal .navbar-nav .nav-link:hover{
+    color: #751177;
+    font-size:17px;
+    font-weight: 700;
+}
 .login-button-color{
     background: linear-gradient(to right, #751177, #3D203E);
 }
@@ -10,6 +15,15 @@
     background: linear-gradient(to right, #281BBF, #3328AE);
 }
 .auth-button{
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    color: white;
+    border-radius: 50px;
+    font-size:15px;
+}
+.auth-button:hover{
     padding-left: 50px;
     padding-right: 50px;
     padding-top: 12px;

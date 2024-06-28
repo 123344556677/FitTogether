@@ -13,6 +13,8 @@ import {
   Col,
   Button,
 } from "reactstrap";
+import { MdBugReport } from "react-icons/md";
+import { IoFitness } from "react-icons/io5";
 
 const AdminNavbar = () => {
   const navigate=useNavigate()
@@ -26,7 +28,7 @@ const AdminNavbar = () => {
             />
           </NavbarBrand>
           <button className="navbar-toggler" id="navbar-collapse-main">
-            <span className="navbar-toggler-icon" />
+           <IoFitness style={{color:"black",fontSize:"30px"}}/>
           </button>
           <UncontrolledCollapse navbar toggler="#navbar-collapse-main">
             <div className="navbar-collapse-header d-md-none">
