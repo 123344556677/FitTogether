@@ -33,7 +33,7 @@ const Footer = () => {
               rel="noopener noreferrer"
               target="_blank"
             >
-              Creative Tim
+              FitTogether
             </a>
           </div>
         </Col>
@@ -46,7 +46,7 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                Creative Tim
+                FitTogether
               </NavLink>
             </NavItem>
 
