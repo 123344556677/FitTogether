@@ -1,5 +1,94 @@
 .bg-default {
-   background-color: white!important;
+   background-color: white !important;
 }
 
+.text-container {
+   position: relative;
+   text-align: center;
+   margin: 50px 0;
+}
 
+.background-text {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   font-size: 150px;
+   /* Adjust size as needed */
+   color: rgba(117, 17, 119, 0.1);
+   /* Light color for blur effect */
+   z-index: -1;
+   filter: blur(1px);
+   /* Adjust blur effect as needed */
+}
+
+.main-text {
+   position: relative;
+   z-index: 1;
+   font-size: 60px !important;
+   /* Main text size */
+   color: #000;
+   /* Main text color */
+   font-weight: 700;
+}
+
+.subscription-background {
+   background-color: rgb(230, 214, 231);
+   border-radius: 20px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   min-height: 100vh;
+   margin-top: 100px;
+   /* Ensure it takes at least the full height of the viewport */
+}
+
+.subscription-background img {
+   max-width: 100%;
+   height: auto;
+}
+
+.subscription-col {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+}
+
+@media (max-width: 1200px) {
+  .background-text {
+    font-size: 150px; /* Adjust size for medium-large screens */
+  }
+}
+
+@media (max-width: 992px) {
+  .background-text {
+    font-size: 100px; /* Adjust size for medium screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .background-text {
+    font-size: 80px; /* Adjust size for small-medium screens */
+  }
+}
+
+@media (max-width: 576px) {
+  .background-text {
+    font-size: 60px; /* Adjust size for small screens */
+  }
+}
+
+@media (max-width: 400px) {
+  .background-text {
+    font-size: 50px; /* Adjust size for extra small screens */
+  }
+}
+
+.small-circle{
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+
+}

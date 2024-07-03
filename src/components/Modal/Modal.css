@@ -1,0 +1,12 @@
+.comment-reply-btn{
+    color:rgba(117, 17, 119, 1);
+    cursor: pointer;
+}
+.see-reply-btn{
+    color:rgba(40, 27, 191, 1);
+    cursor: pointer;
+    font-weight: 600;
+}
+.modal-dialog{
+    max-width:800px;
+}

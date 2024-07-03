@@ -1,36 +1,22 @@
-/*!
-
-=========================================================
-* Argon Dashboard React - v1.2.4
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-react
-* Copyright 2024 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-/*eslint-disable*/
-
-// reactstrap components
 import { NavItem, NavLink, Nav, Container, Row, Col } from "reactstrap";
+import "./Footer.css";
+import {
+  FaFacebookSquare,
+  FaInstagramSquare,
+  FaLinkedin,
+} from "react-icons/fa";
 
-const Login = () => {
+const AuthFooter = () => {
   return (
     <>
-      <footer className="py-5">
+      <footer className="py-5 auth-footer">
         <Container>
           <Row className="align-items-center justify-content-xl-between">
             <Col xl="6">
               <div className="copyright text-center text-xl-left text-muted">
                 © {new Date().getFullYear()}{" "}
                 <a
-                  className="font-weight-bold ml-1"
+                  className="font-weight-bold ml-1 footer-logo"
                   href="https://www.creative-tim.com?ref=adr-auth-footer"
                   target="_blank"
                 >
@@ -45,7 +31,7 @@ const Login = () => {
                     href="https://www.creative-tim.com?ref=adr-auth-footer"
                     target="_blank"
                   >
-                    FitTogether
+                    <FaFacebookSquare  className="footer-icons"/>
                   </NavLink>
                 </NavItem>
                 <NavItem>
@@ -53,7 +39,7 @@ const Login = () => {
                     href="https://www.creative-tim.com/presentation?ref=adr-auth-footer"
                     target="_blank"
                   >
-                    About Us
+                    <FaInstagramSquare className="footer-icons"/>
                   </NavLink>
                 </NavItem>
                 <NavItem>
@@ -61,15 +47,7 @@ const Login = () => {
                     href="http://blog.creative-tim.com?ref=adr-auth-footer"
                     target="_blank"
                   >
-                    Blog
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink
-                    href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md?ref=adr-auth-footer"
-                    target="_blank"
-                  >
-                    MIT License
+                    <FaLinkedin className="footer-icons"/>
                   </NavLink>
                 </NavItem>
               </Nav>
@@ -81,4 +59,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default AuthFooter;

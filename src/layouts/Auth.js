@@ -33,7 +33,6 @@ const Auth = (props) => {
       }
     });
   };
-  console.log(routes,"routes value------>")
   return (
     <>
       <AuthNavbar />
@@ -45,9 +44,7 @@ const Auth = (props) => {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
-      {
-        // <AuthFooter />
-      }
+      <AuthFooter />
     </>
   );
 };

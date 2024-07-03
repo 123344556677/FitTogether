@@ -2,13 +2,13 @@ import Chat from "components/Chat/Chat";
 import Community from "components/Community/Community";
 import Home from "components/Home/Home";
 import Profile from "components/Profile/Profile";
-import Subscription from "components/Subscription/Subscription";
 import { FaHome, FaPeopleArrows, FaUser } from "react-icons/fa";
 import { IoIosChatbubbles } from "react-icons/io";
 import { MdOutlinePayments } from "react-icons/md";
 import { IoLogOut } from "react-icons/io5";
 import { useEffect } from "react";
-import ExerciseDetail from "components/ExerciseDetail/ExerciseDetail";
+import Subscriber from "views/Coach/Subscriber/Subscriber";
+import Dashboard from "views/Coach/Dashboard/Dashboard";
 
 const LogoutComponent = () => {
   useEffect(() => {
@@ -23,55 +23,48 @@ const LogoutComponent = () => {
 };
 
 
-var userRoutes = [
+var coachRoutes = [
   {
-    path: "/home",
-    name: "Home",
+    path: "/dashboard",
+    name: "Dashboard",
     icon: <FaHome/>,
-    component:<Home/>,
-    layout: "/user",
+    component:<Dashboard/>,
+    layout: "/coach",
   },
   {
     path: "/profile",
     name: "Profile",
     icon: <FaUser/>,
     component:<Profile/>,
-    layout: "/user",
+    layout: "/coach",
   },
   {
     path: "/community",
     name: "Community",
     icon: <FaPeopleArrows/>,
     component:<Community/>,
-    layout: "/user",
+    layout: "/coach",
   },
   {
     path: "/chats",
     name: "Chats",
     icon: <IoIosChatbubbles />,
     component:<Chat/>,
-    layout: "/user",
+    layout: "/coach",
   },
   {
-    path: "/subscription",
-    name: "Subscription",
+    path: "/subscribers",
+    name: "Subscribers",
     icon: <MdOutlinePayments />,
-    component:<Subscription/>,
-    layout: "/user",
+    component:<Subscriber/>,
+    layout: "/coach",
   },
   {
     path: "/logoout",
     name: "LogOut",
     icon: <IoLogOut />,
     component:<LogoutComponent/>,
-    layout: "/user",
-  },
-  {
-    path: "/exerciseDetail",
-    name: "Exercise Detail",
-    icon: <IoLogOut />,
-    component:<ExerciseDetail/>,
-    layout: "/user",
+    layout: "/coach",
   },
 ]
-export default userRoutes;
+export default coachRoutes;

@@ -11,11 +11,13 @@ import {
 } from "reactstrap";
 import "./Carousel.css";
 import { getRandomColor } from "DynamicFunctions";
+import { useNavigate } from "react-router-dom";
 
 function DynamicCarousel({ height, borderRadius, items }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
   const [subHeadingColors, setSubHeadingColors] = useState([]);
+  const navigate=useNavigate()
 
   useEffect(() => {
     const randomColors = items.map(() => getRandomColor());
@@ -38,6 +40,10 @@ function DynamicCarousel({ height, borderRadius, items }) {
     if (animating) return;
     setActiveIndex(newIndex);
   };
+   const handleViewMoreClick = () => {
+    console.log("View more clicked");
+    navigate('/user/exerciseDetail');
+  };
 
   const slides = items.map((item, index) => {
     return (
@@ -54,6 +60,7 @@ function DynamicCarousel({ height, borderRadius, items }) {
           style={{
             height: height,
             borderRadius: borderRadius,
+            objectFit: "cover",
           }}
         />
         {item.heading && (
@@ -71,7 +78,7 @@ function DynamicCarousel({ height, borderRadius, items }) {
                 </h1>
               </Col>
               <Col xl={6} className="text-right">
-                <Button outline className="carousel-img-btn mt-3">
+                <Button outline className="carousel-img-btn mt-3" onClick={handleViewMoreClick}>
                   View more
                 </Button>
               </Col>
@@ -98,16 +105,20 @@ function DynamicCarousel({ height, borderRadius, items }) {
           onClickHandler={goToIndex}
         />
         {slides}
-        <CarouselControl
-          direction="prev"
-          directionText="Previous"
-          onClickHandler={previous}
-        />
-        <CarouselControl
-          direction="next"
-          directionText="Next"
-          onClickHandler={next}
-        />
+        {items[0]?.heading && (
+          <>
+            <CarouselControl
+              direction="prev"
+              directionText="Previous"
+              onClickHandler={previous}
+            />
+            <CarouselControl
+              direction="next"
+              directionText="Next"
+              onClickHandler={next}
+            />
+          </>
+        )}
       </Carousel>
     </div>
   );
