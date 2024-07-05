@@ -5,6 +5,8 @@ import AuthNavbar from "components/Navbars/AuthNavbar.js";
 import AuthFooter from "components/Footers/AuthFooter.js";
 
 import routes from "routes.js";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Auth = (props) => {
   const mainContent = React.useRef(null);
@@ -44,6 +46,7 @@ const Auth = (props) => {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
+       <ToastContainer/>
       <AuthFooter />
     </>
   );

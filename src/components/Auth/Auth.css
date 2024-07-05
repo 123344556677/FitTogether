@@ -28,3 +28,11 @@
     font-style: Poppins;
     font-weight: 600;
 }
+.input-select{
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+}
+.signup-input-select{
+    border-bottom: 1px solid rgba(40, 27, 191, 1);
+}

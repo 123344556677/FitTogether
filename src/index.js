@@ -27,7 +27,6 @@ import AdminLayout from "layouts/Admin.js";
 import AuthLayout from "layouts/Auth.js";
 import UserLayout from "layouts/User.js";
 import CoachLayout from "layouts/Coach.js";
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(

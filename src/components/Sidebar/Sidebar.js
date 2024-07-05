@@ -47,7 +47,7 @@ const Sidebar = (props) => {
     return routes.map((prop, key) => {
       return (
         <>
-          {prop.name !== "Exercise Detail" && (
+          {(prop.name !== "Exercise Detail" && prop.name !== "Create Post")&& (
             <NavItem key={key} className="nav-items">
               <NavLink
                 to={prop.layout + prop.path}

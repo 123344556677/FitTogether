@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Media, Row, Collapse, Button } from "reactstrap";
 import "./Community.css";
 import { CommunityPostsData } from "assets/Mock_Data/ProfileData";
@@ -6,13 +6,24 @@ import VideoComponent from "components/VideoComponent/VideoComponent";
 import { FaRegHeart, FaRegComment, FaAngleDown, FaAngleUp } from "react-icons/fa";
 import DynamicModal from "components/Modal/Modal";
 import { trainersData } from "assets/Mock_Data/CarouselData";
+import { getVideos } from "Api/Api";
 
 const Community = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentView, setCurrentView] = useState(null);
   const [value, setValue] = useState(null);
   const [title, setTitle] = useState('');
+  const [communityVideos, setCommunityVideos] = useState();
   const [isCoachesOpen, setIsCoachesOpen] = useState(true);
+
+  useEffect(()=>{
+     const fetchVideoInfo = async () => {
+        const response = await getVideos();
+        console.log(response,"vid reponse----->")
+        setCommunityVideos(response?.data?.videos);
+    };
+    fetchVideoInfo()
+    },[])
 
   const openModal = (view, title, value) => {
     setIsOpen(true);
@@ -33,27 +44,32 @@ const Community = () => {
   return (
     <div className="pt-5 pt-md-8 mb-3 p-3">
     <h1 className="subscription-heading p-3">
-        Engage with Other's posts<br /> to know them.{" "}
+        Engage with Others posts<br /> to know them.{" "}
       </h1>
       <Row className="w-100">
+      
         <Col xl={8}>
-          {CommunityPostsData?.map((data, index) => (
+        {
+        communityVideos?.map((data,index)=>(
             <Media className="mt-3" key={index}>
               <Media>
                 <Media
                   object
-                  src={data?.profileImage}
+                  src={data?.profileImage||require('../../assets/img/images/tr1.jfif')}
                   alt="Profile"
                   className="community-profile-img"
                 />
               </Media>
               <Media body className="ml-3">
-                <h1 className="mb-0">{data?.name}</h1>
+                <h1 className="mb-0">{data?.userId?.fname} {data?.userId?.lname}</h1>
                 <span className="goat-label mt-2">{data?.date}</span>
                 <Col xl={12} style={{ paddingLeft: "0" }}>
                   <div className="community-video-item">
-                    <VideoComponent video={data} />
+                    <video width="100%" controls>
+            <source src={data?.videoUrl}  />
+          </video>
                   </div>
+                  <h3>{data?.title}</h3>
                   <div className="d-flex">
                     <FaRegHeart className="community-icons" />
                     <FaRegComment
@@ -64,8 +80,10 @@ const Community = () => {
                 </Col>
               </Media>
             </Media>
-          ))}
+             ))
+      }
         </Col>
+       
         <Col xl={4}>
           <div className="coaches-section">
             <Button

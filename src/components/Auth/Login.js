@@ -1,27 +1,52 @@
-import React from "react";
-import {
-  Button,
-  Card,
-  Col,
-  Container,
-  Form,
-  FormGroup,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-  Row,
-} from "reactstrap";
+import React, { useState } from "react";
+import { Button, Card, Col, Form, Row } from "reactstrap";
 import "./Auth.css";
 import { loginInputs } from "assets/Mock_Data/FormData";
 import { useNavigate } from "react-router-dom";
 import MotionWrapper from "components/FramerMotion/FramerMotion";
+import DynamicInput from "components/DynamicInputs/DynamicInputs";
+import { login } from "Api/Api";
+import { setLocalStorage } from "DynamicFunctions";
 
 const Login = () => {
+  const [formValues, setFormValues] = useState(
+    loginInputs.reduce((acc, input) => {
+      acc[input.name] = input.value || "";
+      return acc;
+    }, {})
+  );
   const navigate = useNavigate();
   const slideVariants = {
     hidden: { x: "-100%" },
     visible: { x: 0, transition: { duration: 0.6 } },
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(formValues);
+    const values = {
+      email: formValues?.email,
+      password: formValues?.password,
+    };
+    const response = await login(values);
+    console.log(response, "response---->values");
+    setLocalStorage("token", response.data?.data?.token);
+    setLocalStorage("id", response.data?.data?._id);
+    if (response?.data?.data?.userType === "user") {
+      window.location.assign("/user/home");
+    }
+    if (response?.data?.data?.userType === "trainer") {
+      window.location.assign("/coach/dashboard");
+    }
+    // handle form submission
   };
   return (
     <div>
@@ -39,23 +64,14 @@ const Login = () => {
                 Welcome back to sign in to your account!
               </p>
               <hr />
-              <Form role="form" className="mt-2 p-1">
+              <Form role="form" className="mt-2 p-1" onSubmit={handleSubmit}>
                 {loginInputs?.map((data, index) => (
-                  <FormGroup key={index}>
-                    <InputGroup className="input-group-alternative mb-3 login-input">
-                      <InputGroupAddon addonType="prepend">
-                        <InputGroupText>
-                          <i className={data?.icon} />
-                        </InputGroupText>
-                      </InputGroupAddon>
-                      <Input
-                        placeholder={data?.placeholder}
-                        type={data?.type}
-                        name={data?.name}
-                        required
-                      />
-                    </InputGroup>
-                  </FormGroup>
+                  <DynamicInput
+                    key={index}
+                    data={data}
+                    value={formValues[data.name]}
+                    handleChange={handleChange}
+                  />
                 ))}
                 <Row className="my-4">
                   <Col xs="6">
@@ -87,8 +103,8 @@ const Login = () => {
                   <Button
                     className="mt-5 login-button-color auth-button"
                     color="primary"
-                    type="button"
-                    onClick={() => navigate("/user/home")}
+                    type="submit"
+                    // onClick={() => navigate("/user/home")}
                   >
                     Sign in to your account
                   </Button>

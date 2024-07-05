@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocation, Route, Routes, Navigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
 // reactstrap components
 import { Container } from "reactstrap";
 // core components
@@ -9,6 +10,7 @@ import Sidebar from "components/Sidebar/Sidebar.js";
 
 import userRoutes from "userRoutes.js";
 import UserNavbar from "components/Navbars/UserNavbar";
+import { ToastContainer } from "react-toastify";
 
 const User = (props) => {
   const mainContent = React.useRef(null);
@@ -67,6 +69,7 @@ const User = (props) => {
         <Container fluid>
           <AdminFooter />
         </Container>
+        <ToastContainer/>
       </div>
     </>
   );

@@ -1,12 +1,85 @@
-import React, { useState } from "react";
-import { Modal, ModalBody, ModalHeader, Input, Form, Button, Media } from "reactstrap";
-import './Modal.css';
+import React, { useEffect, useState } from "react";
+import {
+  Modal,
+  ModalBody,
+  ModalHeader,
+  Card,
+  Row,
+  Col,
+  Button,
+  Media,
+  Form,
+  Input,
+} from "reactstrap";
+import MultiSelectWithTags from "components/DynamicInputs/MultipleSelect";
+import backgroundImage from "../../assets/img/images/ps-1.jpg";
+import { getQuery } from "Api/Api";
+import "./Modal.css";
+import { updateQuery } from "Api/Api";
+import { useNavigate } from "react-router-dom";
 
-const DynamicModal = ({ isOpen, toggle, view, title }) => {
-  const [walletAddress, setWalletAddress] = useState("");
+const DynamicModal = ({ isOpen, toggle, view, title,value }) => {
+  const [selectedOptions, setSelectedOptions] = useState({});
+  const [signupQuery, setSignUpQuery] = useState([]);
+  const [formValid, setFormValid] = useState(false);
   const [replyMode, setReplyMode] = useState(false);
   const [comment, setComment] = useState("");
+  const navigate=useNavigate();
+console.log(value,"values------->")
+  useEffect(() => {
+    const fetchQuery = async () => {
+      try {
+        const response = await getQuery();
+        console.log(response, "query response---->");
+        setSignUpQuery(response?.data?.signupQuestions || []);
+        initializeSelectedOptions(response?.data?.signupQuestions || []);
+      } catch (error) {
+        console.error("Error fetching signup questions:", error);
+      }
+    };
+    fetchQuery();
+  }, [value]);
 
+  useEffect(() => {
+    setFormValid(validateForm());
+  }, [selectedOptions]);
+
+  const initializeSelectedOptions = (questions) => {
+    const initialOptions = {};
+    questions.forEach((question) => {
+      initialOptions[question.key] = [];
+    });
+    setSelectedOptions(initialOptions);
+  };
+
+  const handleSelect = (selectedValues, name) => {
+    setSelectedOptions({ ...selectedOptions, [name]: selectedValues });
+  };
+
+  const validateForm = () => {
+    // Check if all keys in selectedOptions have at least one value
+    for (const key in selectedOptions) {
+      if (selectedOptions[key].length === 0) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  const submit = async(e) => {
+    e.preventDefault();
+    if (view === "signupQuery" && formValid) {
+      console.log("Form is valid, submitting...");
+      const response= await updateQuery(selectedOptions,value)
+      console.log(response,"response----values-->")
+      navigate('/login')
+      // Perform your form submission logic here
+    } else {
+      console.log("Form is not valid or view is not signupQuery");
+    }
+  };
+
+  console.log(selectedOptions, "selected option");
   const handleReplyClick = () => {
     setReplyMode(true);
   };
@@ -28,7 +101,7 @@ const DynamicModal = ({ isOpen, toggle, view, title }) => {
             <Media>
               <Media
                 object
-                src='https://picsum.photos/id/123/1200/600'
+                src="https://picsum.photos/id/123/1200/600"
                 alt="Profile"
                 className="community-profile-img"
               />
@@ -36,7 +109,8 @@ const DynamicModal = ({ isOpen, toggle, view, title }) => {
             <Media body className="ml-3">
               <h4 className="mb-0">Abdul Hannan</h4>
               <span className="goat-label mt-2">
-                My name is hannan <span className="see-reply-btn ml-2">see replies</span>
+                My name is Hannan{" "}
+                <span className="see-reply-btn ml-2">see replies</span>
               </span>
               {replyMode ? (
                 <Form onSubmit={handleReplySubmit}>
@@ -45,15 +119,66 @@ const DynamicModal = ({ isOpen, toggle, view, title }) => {
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
                     placeholder="Write a reply..."
-                    className="login-input input-group-alternative "
+                    className="login-input input-group-alternative"
                   />
-                  <Button type="submit" className="mt-2 login-button-color auth-button">Submit</Button>
+                  <Button
+                    type="submit"
+                    className="mt-2 login-button-color auth-button"
+                  >
+                    Submit
+                  </Button>
                 </Form>
               ) : (
-                <h4 className="comment-reply-btn" onClick={handleReplyClick}>Reply</h4>
+                <h4 className="comment-reply-btn" onClick={handleReplyClick}>
+                  Reply
+                </h4>
               )}
             </Media>
           </Media>
+        </div>
+      );
+      break;
+    case "signupQuery":
+      content = (
+        <div
+          style={{
+            background: `url(${backgroundImage})`,
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          <Row className="justify-content-center">
+            <Col xl={6}>
+              <Card className="p-2 card-shadow m-4">
+                {signupQuery.map((question, index) => (
+                  <div key={index} className="m-3">
+                    <h5>{question.question}</h5>
+                    <MultiSelectWithTags
+                      options={question.options.map((option) => ({
+                        value: option,
+                        label: option,
+                      }))}
+                      placeholder={question.question}
+                      selectedValues={selectedOptions[question.key] || []}
+                      handleSelect={handleSelect}
+                      name={question.key}
+                    />
+                  </div>
+                ))}
+                <Button
+                  className="mt-4 auth-button signUp-button-color"
+                  type="submit"
+                  onClick={submit}
+                  disabled={!formValid}
+                >
+                  Submit
+                </Button>
+              </Card>
+            </Col>
+          </Row>
         </div>
       );
       break;
@@ -62,8 +187,10 @@ const DynamicModal = ({ isOpen, toggle, view, title }) => {
   }
 
   return (
-    <Modal isOpen={isOpen} toggle={toggle}>
-      <ModalHeader toggle={toggle}><h1 className="text-center">{title}</h1></ModalHeader>
+    <Modal isOpen={isOpen} toggle={toggle} className="custom-modal">
+      <ModalHeader toggle={toggle}>
+        <h1 className="text-center">{title}</h1>
+      </ModalHeader>
       <ModalBody>{content}</ModalBody>
     </Modal>
   );

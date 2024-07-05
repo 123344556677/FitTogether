@@ -66,7 +66,7 @@ export const landingPageItems = [
   {
     altText: "Slide 3",
     key: 3,
-    src: require('../img/images/ps-3.jfif'),
+    src: require('../img/images/ps-5.jpg'),
   },
   {
     altText: "Slide 4",

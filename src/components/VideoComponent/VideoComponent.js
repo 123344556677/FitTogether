@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import './VideoComponent.css';
 
 const VideoComponent = ({ video }) => {
+  console.log(video,"in video component")
   const [isHovered, setIsHovered] = useState(false);
   const videoRef = useRef(null);
   const isPlayingRef = useRef(false); // Ref to track if the video is playing
@@ -29,7 +30,7 @@ const VideoComponent = ({ video }) => {
   return (
       <video
         ref={videoRef}
-        src={video.link} 
+        src={video.videoUrl} 
         loop
         muted
         className="video-thumbnail"

@@ -9,6 +9,7 @@ import { MdOutlinePayments } from "react-icons/md";
 import { IoLogOut } from "react-icons/io5";
 import { useEffect } from "react";
 import ExerciseDetail from "components/ExerciseDetail/ExerciseDetail";
+import CreatePost from "components/Post/CreatePost";
 
 const LogoutComponent = () => {
   useEffect(() => {
@@ -71,6 +72,13 @@ var userRoutes = [
     name: "Exercise Detail",
     icon: <IoLogOut />,
     component:<ExerciseDetail/>,
+    layout: "/user",
+  },
+  {
+    path: "/createPost",
+    name: "Create Post",
+    icon: <IoLogOut />,
+    component:<CreatePost/>,
     layout: "/user",
   },
 ]

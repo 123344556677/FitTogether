@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { Button, Card} from "reactstrap";
+import PaymentForm from "./PaymentForm";
+import { stripePromise } from "DynamicFunctions";
+import { Elements } from "@stripe/react-stripe-js";
+import { getUser } from "Api/Api";
 
 const SubscriptionCards = ({ data }) => {
+    const id = localStorage.getItem("id");
+    const [userData, setUserData] = useState();
+    useEffect(()=>{
+     const fetchUserInfo = async () => {
+        const response = await getUser(id);
+        console.log(response,"user reponse----->")
+        setUserData(response?.data?.user);
+    };
+    fetchUserInfo()
+    },[])
+    
   return (
+    <Elements stripe={stripePromise}>
     <div>
       <Card
         className="subscription-card p-3"
@@ -29,19 +45,23 @@ const SubscriptionCards = ({ data }) => {
             </li>
           ))}
         </ul>
-        <Button
-          className={
-            data?.planName === "Standard Plan"
-              ? "mt-5 login-button-color auth-button"
-              : "mt-5 auth-button signUp-button-color"
-          }
-          color="primary"
-          type="button"
-        >
-          Get Started
-        </Button>
+        {
+        // <Button
+        //   className={
+        //     data?.planName === "Standard Plan"
+        //       ? "mt-5 login-button-color auth-button"
+        //       : "mt-5 auth-button signUp-button-color"
+        //   }
+        //   color="primary"
+        //   type="button"
+        // >
+        //   Get Started
+        // </Button>
+        }
+        <PaymentForm planData={data} userData={userData}/>
       </Card>
     </div>
+    </Elements>
   );
 };
 

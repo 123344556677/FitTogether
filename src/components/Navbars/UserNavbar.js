@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // reactstrap components
 import {
   DropdownMenu,
@@ -15,9 +15,11 @@ import {
   Nav,
   Container,
   Media,
+  Button,
 } from "reactstrap";
 
 const UserNavbar = (props) => {
+  const navigate=useNavigate()
   return (
     <>
       <Navbar className="navbar-top navbar-dark user-navbar" expand="md" id="navbar-main">
@@ -27,18 +29,30 @@ const UserNavbar = (props) => {
           >
             {props.brandText}
           </span>
-          <Form className="navbar-search  form-inline mr-3 d-none d-md-flex ml-lg-auto">
-            <FormGroup className="mb-0">
-              <InputGroup className="input-group-alternative">
-                <InputGroupAddon addonType="prepend">
-                  <InputGroupText>
-                    <i className="fas fa-search" />
-                  </InputGroupText>
-                </InputGroupAddon>
-                <Input placeholder="Search" type="text" />
-              </InputGroup>
-            </FormGroup>
-          </Form>
+                  
+          <div className="mr-3 d-none d-md-flex ml-lg-auto">
+          <Button
+                    className="login-button-color auth-button"
+                    color="primary"
+                    type="submit"
+                    onClick={() => navigate("/user/createPost")}
+                  >
+                    Create Post
+                  </Button>
+          {
+          // <FormGroup className="mb-0">
+          //     <InputGroup className="input-group-alternative">
+          //       <InputGroupAddon addonType="prepend">
+          //         <InputGroupText>
+          //           <i className="fas fa-search" />
+          //         </InputGroupText>
+          //       </InputGroupAddon>
+          //       <Input placeholder="Search" type="text" />
+          //     </InputGroup>
+          //   </FormGroup>
+          }
+          </div>
+                  
           <Nav className="align-items-center d-none d-md-flex" navbar>
             <UncontrolledDropdown nav>
               <DropdownToggle className="pr-0" nav>

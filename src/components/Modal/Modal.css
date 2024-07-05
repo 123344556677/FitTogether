@@ -8,5 +8,9 @@
     font-weight: 600;
 }
 .modal-dialog{
-    max-width:800px;
+    max-width:1200px;
+}
+.custom-modal {
+  background: url('../../assets/img/images/ps-1.jpg') no-repeat center center;
+  background-size: cover;
 }

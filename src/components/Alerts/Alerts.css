@@ -1,0 +1,37 @@
+/* toastStyles.css */
+.toast-container {
+  border-bottom: 5px solid purple !important;
+  border-radius: 8px !important;
+}
+
+.toast-body {
+  font-size: 16px !important;
+}
+
+.toast-progress {
+  background-color: purple !important;
+}
+
+.toast-success {
+  border-bottom-color: purple !important;
+}
+
+.toast-body-success {
+  color: green !important;
+}
+
+.toast-progress-success {
+  background-color: green !important;
+}
+
+.toast-error {
+  border-bottom-color: purple !important;
+}
+
+.toast-body-error {
+  color: red !important;
+}
+
+.toast-progress-error {
+  background-color: red !important;
+}
