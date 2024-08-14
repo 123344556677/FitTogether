@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, Card } from "reactstrap";
 import {
   FaDollarSign,
@@ -7,8 +7,18 @@ import {
   FaRegListAlt,
 } from "react-icons/fa";
 import "./Dashboard.css";
+import { getTrainerDasboard } from "Api/Api";
 
 const Dashboard = () => {
+  const [info, setInfo] = useState();
+  useEffect(() => {
+    const fetchTrainerDashboard = async () => {
+      const response = await getTrainerDasboard();
+      console.log(response, "dashboard response----->");
+      setInfo(response?.data);
+    };
+    fetchTrainerDashboard();
+  }, []);
   return (
     <div className="pt-5 pt-md-8 mb-3 p-3">
       <div className="dashboard-cards">
@@ -18,7 +28,7 @@ const Dashboard = () => {
               <div className="text-center p-3">
                 <FaDollarSign className="dashboard-icon" />
                 <h1 className="mt-2">Total Revenue</h1>
-                <h3 className="dashboard-card-detail">$120</h3>
+                <h3 className="dashboard-card-detail">${info?.balance}</h3>
               </div>
             </Card>
           </Col>
@@ -27,7 +37,7 @@ const Dashboard = () => {
               <div className="text-center p-3">
                 <FaUsers className="dashboard-icon" />
                 <h1 className="mt-2">Total Clients</h1>
-                <h3 className="dashboard-card-detail">120</h3>
+                <h3 className="dashboard-card-detail">{info?.users}</h3>
               </div>
             </Card>
           </Col>
@@ -36,7 +46,7 @@ const Dashboard = () => {
               <div className="text-center p-3">
                 <FaUserCheck className="dashboard-icon" />
                 <h1 className="mt-2">Active Clients</h1>
-                <h3 className="dashboard-card-detail">120</h3>
+                <h3 className="dashboard-card-detail">{info?.users}</h3>
               </div>
             </Card>
           </Col>
@@ -45,7 +55,7 @@ const Dashboard = () => {
               <div className="text-center p-3">
                 <FaRegListAlt className="dashboard-icon" />
                 <h1 className="mt-2">Total Subscriptions</h1>
-                <h3 className="dashboard-card-detail">120</h3>
+                <h3 className="dashboard-card-detail">{info?.users}</h3>
               </div>
             </Card>
           </Col>

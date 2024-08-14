@@ -29,6 +29,12 @@ export const updateQuery= (values,token) => {
 export const getUser = (id) => {
   return apiWrapper(() =>api.get(`/user/getUser/${id}`));
 };
+export const updateUserInfo = (values) => {
+  return apiWrapper(() => api.patch('/user/updateInformation', values));
+};
+export const updateProfileImage = (values) => {
+  return apiWrapper(() => api.post('/user//setProfileImage', values));
+};
 
 //subscription
 export const makeSubscription = (values) => {
@@ -44,5 +50,50 @@ export const uploadVideo= (values) => {
 };
 export const getVideos = () => {
   return apiWrapper(() =>api.get('/video/getVideos'));
+};
+export const likeVideo= (id) => {
+  return apiWrapper(() => api.post(`/video/likeVideo/${id}`));
+};
+export const unlikeVideo= (id) => {
+  return apiWrapper(() => api.post(`/video/unLikeVideo/${id}`));
+};
+export const commentVideo= (id,values) => {
+  return apiWrapper(() => api.post(`/video/commentOnVideo/${id}`,values));
+};
+export const getUserVideos = () => {
+  return apiWrapper(() =>api.get('/video/getVideosByUser'));
+};
+
+//trainer
+export const getUserTrainers = () => {
+  return apiWrapper(() =>api.get('/trainer/getAllTrainer'));
+};
+export const updateTrainer = (values) => {
+  return apiWrapper(() => api.post('/subscription/updateTrainer', values));
+};
+export const getUserTrainerClients = () => {
+  return apiWrapper(() =>api.get('/trainer/getClients'));
+};
+export const getTrainerDasboard = () => {
+  return apiWrapper(() =>api.get('/trainer/getTrainerDashboard'));
+};
+
+//chat
+export const getChatPeople = () => {
+  return apiWrapper(() =>api.get('/chat/userChats'));
+};
+export const sendMessage= (values) => {
+  return apiWrapper(() => api.post('/message/addMessage',values));
+};
+export const getAllMessages= (values) => {
+  return apiWrapper(() => api.post('/message/getMessages',values));
+};
+
+//diePlans
+export const getDietPlans = () => {
+  return apiWrapper(() =>api.get('/exerciseDiet/getDailyPlans'));
+};
+export const getDay= () => {
+  return apiWrapper(() =>api.get('/exerciseDiet//getDay'));
 };
 

@@ -4,55 +4,53 @@ import { inboxColors, profileColors } from "assets/Mock_Data/ChatData";
 import { inboxChats } from "assets/Mock_Data/ChatData";
 import { getColorPalette } from "../../DynamicFunctions";
 import { truncateText } from "../../DynamicFunctions";
+import { getChatPeople } from "Api/Api";
 
-const ChatSide = ({ component, activeChat }) => {
+const ChatSide = ({ component }) => {
   const [chat, setChat] = useState(false);
+  const [chatPeople, setChatPeople] = useState();
+
+  useEffect(() => {
+    const fetchChatPeople = async () => {
+      const response = await getChatPeople();
+      console.log(response, "chat response----->");
+      setChatPeople(response?.data?.populatedParticipants || []);
+    };
+    fetchChatPeople();
+  }, []);
 
   useEffect(() => {
     setChat(true);
   }, []);
 
-  const handleChatNavigation = () => {
-    activeChat(true);
-  };
-
   return (
     <div className="chat-left-side">
-      {inboxChats?.map((data, index) => {
-        const { parentColor, childColor } = getColorPalette(
-          index,
-          profileColors.map((c) => c.parentColor),
-          profileColors.map((c) => c.childColor)
-        );
-
+      {chatPeople?.map((data, index) => {
         return (
           <>
             <div
               className="user-info"
               key={index}
               style={{
-                backgroundColor: inboxColors[index % inboxColors.length],
+                backgroundColor: "#F1F6FB",
                 padding: component === "Chat" ? "20px" : "40px",
               }}
-              onClick={handleChatNavigation}
             >
               <div
                 className="user-image"
-                style={{ backgroundColor: parentColor }}
+                style={{ backgroundColor: "#FBCACA" }}
               >
-                <div className="user-initials" style={{ color: childColor }}>
-                  {getInitials(data?.name)}
+                <div className="user-initials" style={{ color: "#884747" }}>
+                  {getInitials(data?.fname)}
                 </div>
               </div>
               <div className="user-details ml-3">
-                <div className="user-name">{data?.name}</div>
-                {component === "Chat" ? (
-                  <div className="latest-message mt-1">
-                    {truncateText(data?.message, 30)}
-                  </div>
-                ) : (
-                  <div className="latest-message mt-1">{data?.message}</div>
-                )}
+                <div className="user-name">{data?.fname} {data?.lname}</div>
+                {
+                  // <div className="latest-message mt-1">
+                  //   Online
+                  // </div>
+                }
               </div>
               <div className="message-time">{data?.time}</div>
             </div>

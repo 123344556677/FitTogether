@@ -86,7 +86,7 @@
 
 
 .message-section {
-  height: calc(100vh - 10px);
+  height: calc(90vh - 10px);
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -173,6 +173,9 @@
 }
 
 .msg-send-button {
+  background-color: #91DF46;
+}
+.msg-send-button:hover {
   background-color: #91DF46;
 }
 

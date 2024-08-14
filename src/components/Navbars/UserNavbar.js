@@ -1,3 +1,5 @@
+import { getUser } from "Api/Api";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 // reactstrap components
 import {
@@ -19,40 +21,56 @@ import {
 } from "reactstrap";
 
 const UserNavbar = (props) => {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
+  const id = localStorage.getItem("id");
+  const [userData, setUserData] = useState();
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      const response = await getUser(id);
+      console.log(response, "user reponse----->");
+      setUserData(response?.data?.user);
+    };
+    fetchUserInfo();
+  }, []);
   return (
     <>
-      <Navbar className="navbar-top navbar-dark user-navbar" expand="md" id="navbar-main">
+      <Navbar
+        className="navbar-top navbar-dark user-navbar"
+        expand="md"
+        id="navbar-main"
+      >
         <Container fluid>
-          <span
-            className="h4 mb-0  text-uppercase d-none d-lg-inline-block"
-          >
+          <span className="h4 mb-0  text-uppercase d-none d-lg-inline-block">
             {props.brandText}
           </span>
-                  
+
           <div className="mr-3 d-none d-md-flex ml-lg-auto">
-          <Button
-                    className="login-button-color auth-button"
-                    color="primary"
-                    type="submit"
-                    onClick={() => navigate("/user/createPost")}
-                  >
-                    Create Post
-                  </Button>
           {
-          // <FormGroup className="mb-0">
-          //     <InputGroup className="input-group-alternative">
-          //       <InputGroupAddon addonType="prepend">
-          //         <InputGroupText>
-          //           <i className="fas fa-search" />
-          //         </InputGroupText>
-          //       </InputGroupAddon>
-          //       <Input placeholder="Search" type="text" />
-          //     </InputGroup>
-          //   </FormGroup>
+            userData?.userType==="user"&&
+            <Button
+              className="login-button-color auth-button"
+              color="primary"
+              type="submit"
+              onClick={() => navigate("/user/createPost")}
+            >
+              Create Post
+          
+            </Button>
           }
+            {
+              // <FormGroup className="mb-0">
+              //     <InputGroup className="input-group-alternative">
+              //       <InputGroupAddon addonType="prepend">
+              //         <InputGroupText>
+              //           <i className="fas fa-search" />
+              //         </InputGroupText>
+              //       </InputGroupAddon>
+              //       <Input placeholder="Search" type="text" />
+              //     </InputGroup>
+              //   </FormGroup>
+            }
           </div>
-                  
+
           <Nav className="align-items-center d-none d-md-flex" navbar>
             <UncontrolledDropdown nav>
               <DropdownToggle className="pr-0" nav>
@@ -60,42 +78,19 @@ const UserNavbar = (props) => {
                   <span className="avatar avatar-sm rounded-circle">
                     <img
                       alt="..."
-                      src={require("../../assets/img/theme/team-4-800x800.jpg")}
+                      src={userData?.profilePicture||require("../../assets/img/theme/team-4-800x800.jpg")}
                     />
                   </span>
                   <Media className="ml-2 d-none d-lg-block">
-                    <span className="mb-0 text-sm font-weight-bold" style={{color:"black"}}>
-                      Jessica Jones
+                    <span
+                      className="mb-0 text-sm font-weight-bold"
+                      style={{ color: "black" }}
+                    >
+                       {userData?.fname} {userData?.lname}
                     </span>
                   </Media>
                 </Media>
               </DropdownToggle>
-              <DropdownMenu className="dropdown-menu-arrow" right>
-                <DropdownItem className="noti-title" header tag="div">
-                  <h6 className="text-overflow m-0">Welcome!</h6>
-                </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
-                  <i className="ni ni-single-02" />
-                  <span>My profile</span>
-                </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
-                  <i className="ni ni-settings-gear-65" />
-                  <span>Settings</span>
-                </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
-                  <i className="ni ni-calendar-grid-58" />
-                  <span>Activity</span>
-                </DropdownItem>
-                <DropdownItem to="/admin/user-profile" tag={Link}>
-                  <i className="ni ni-support-16" />
-                  <span>Support</span>
-                </DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
-                  <i className="ni ni-user-run" />
-                  <span>Logout</span>
-                </DropdownItem>
-              </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
         </Container>

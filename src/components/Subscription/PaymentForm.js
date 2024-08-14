@@ -40,11 +40,14 @@ function PaymentForm({planData,userData}) {
             planId:planData?.planId,
             userId:userData?._id,
             type:planData?.type,
-            token:paymentMethod?.paymentMethod?.id,
+            token:"tok_visa",
             amount:planData?.planId==="1"?10:100
         }
         const reponse=await makeSubscription(values)
+        if(reponse){
         console.log(reponse,"sub response-->")
+        navigate('/user/home')
+        }
     }
         
 

@@ -5,8 +5,10 @@ import { Autoplay, Navigation } from "swiper";
 import "swiper/swiper-bundle.min.css";
 import "./Slider.css";
 import { Button, Card } from "reactstrap";
+import { useNavigate } from "react-router-dom";
 
 const SliderComponent = ({ cards, component }) => {
+  const navigate=useNavigate()
   let content;
   switch (component) {
     case "services-cards":
@@ -38,6 +40,7 @@ const SliderComponent = ({ cards, component }) => {
                     className="mt-5 login-button-color auth-button"
                     color="primary"
                     type="button"
+                    onClick={()=>navigate('/login')}
                   >
                     Get Trainer
                   </Button>

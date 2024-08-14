@@ -17,15 +17,15 @@ import { getQuery } from "Api/Api";
 import "./Modal.css";
 import { updateQuery } from "Api/Api";
 import { useNavigate } from "react-router-dom";
+import { commentVideo } from "Api/Api";
 
 const DynamicModal = ({ isOpen, toggle, view, title,value }) => {
   const [selectedOptions, setSelectedOptions] = useState({});
   const [signupQuery, setSignUpQuery] = useState([]);
   const [formValid, setFormValid] = useState(false);
-  const [replyMode, setReplyMode] = useState(false);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState();
   const navigate=useNavigate();
-console.log(value,"values------->")
+console.log(value,"comment values------->")
   useEffect(() => {
     const fetchQuery = async () => {
       try {
@@ -71,6 +71,7 @@ console.log(value,"values------->")
     if (view === "signupQuery" && formValid) {
       console.log("Form is valid, submitting...");
       const response= await updateQuery(selectedOptions,value)
+       await updateQuery(selectedOptions,value)
       console.log(response,"response----values-->")
       navigate('/login')
       // Perform your form submission logic here
@@ -78,18 +79,21 @@ console.log(value,"values------->")
       console.log("Form is not valid or view is not signupQuery");
     }
   };
+  const handleComment=async()=>{
+    const values={
+      text:comment
+    }
+    const response=await commentVideo(value?._id,values)
+    if(response){
+      window?.location?.reload(false)
+    }
+
+
+
+  }
 
   console.log(selectedOptions, "selected option");
-  const handleReplyClick = () => {
-    setReplyMode(true);
-  };
 
-  const handleReplySubmit = (e) => {
-    e.preventDefault();
-    // Handle the reply submission logic here
-    setReplyMode(false);
-    setComment(""); // Reset the input field
-  };
 
   let content;
 
@@ -97,44 +101,33 @@ console.log(value,"values------->")
     case "comments":
       content = (
         <div>
-          <Media className="mt-3">
+        {
+          value?.comments?.map((data,index)=>(
+          <Media className="mt-3" key={index}>
             <Media>
               <Media
                 object
-                src="https://picsum.photos/id/123/1200/600"
+                src={data?.profilePicture||"https://picsum.photos/id/123/1200/600"}
                 alt="Profile"
                 className="community-profile-img"
               />
             </Media>
             <Media body className="ml-3">
-              <h4 className="mb-0">Abdul Hannan</h4>
+              <h4 className="mb-0">{data?.userId?.fname} {data?.userId?.lname}</h4>
               <span className="goat-label mt-2">
-                My name is Hannan{" "}
-                <span className="see-reply-btn ml-2">see replies</span>
+                {data.text}
               </span>
-              {replyMode ? (
-                <Form onSubmit={handleReplySubmit}>
-                  <Input
-                    type="text"
-                    value={comment}
-                    onChange={(e) => setComment(e.target.value)}
-                    placeholder="Write a reply..."
-                    className="login-input input-group-alternative"
-                  />
-                  <Button
-                    type="submit"
-                    className="mt-2 login-button-color auth-button"
-                  >
-                    Submit
-                  </Button>
-                </Form>
-              ) : (
-                <h4 className="comment-reply-btn" onClick={handleReplyClick}>
-                  Reply
-                </h4>
-              )}
             </Media>
           </Media>
+          ))
+        }
+          <Input
+          type="text"
+          placeholder="Add a comment"
+          className="mt-4 login-input input-group-alternative"
+          onChange={(e)=>setComment(e.target.value)}
+          />
+          <Button className="login-button-color mt-3  auth-button" onClick={handleComment}>Add</Button>
         </div>
       );
       break;

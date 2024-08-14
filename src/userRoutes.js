@@ -10,6 +10,7 @@ import { IoLogOut } from "react-icons/io5";
 import { useEffect } from "react";
 import ExerciseDetail from "components/ExerciseDetail/ExerciseDetail";
 import CreatePost from "components/Post/CreatePost";
+import UpdateProfile from "components/Profile/UpdateProfile";
 
 const LogoutComponent = () => {
   useEffect(() => {
@@ -79,6 +80,13 @@ var userRoutes = [
     name: "Create Post",
     icon: <IoLogOut />,
     component:<CreatePost/>,
+    layout: "/user",
+  },
+  {
+    path: "/updateUserProfile",
+    name: "Update Profile",
+    icon: <IoLogOut />,
+    component:<UpdateProfile/>,
     layout: "/user",
   },
 ]

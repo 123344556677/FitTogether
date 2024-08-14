@@ -9,6 +9,7 @@ import { IoLogOut } from "react-icons/io5";
 import { useEffect } from "react";
 import Subscriber from "views/Coach/Subscriber/Subscriber";
 import Dashboard from "views/Coach/Dashboard/Dashboard";
+import UpdateProfile from "views/Coach/Profile/UpdateProfile";
 
 const LogoutComponent = () => {
   useEffect(() => {
@@ -57,6 +58,13 @@ var coachRoutes = [
     name: "Subscribers",
     icon: <MdOutlinePayments />,
     component:<Subscriber/>,
+    layout: "/coach",
+  },
+  {
+    path: "/updateCoachProfile",
+    name: "Coach Profile",
+    icon: <MdOutlinePayments />,
+    component:<UpdateProfile/>,
     layout: "/coach",
   },
   {

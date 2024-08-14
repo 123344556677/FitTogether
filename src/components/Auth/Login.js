@@ -38,6 +38,7 @@ const Login = () => {
     };
     const response = await login(values);
     console.log(response, "response---->values");
+    if(response){
     setLocalStorage("token", response.data?.data?.token);
     setLocalStorage("id", response.data?.data?._id);
     if (response?.data?.data?.userType === "user") {
@@ -46,6 +47,7 @@ const Login = () => {
     if (response?.data?.data?.userType === "trainer") {
       window.location.assign("/coach/dashboard");
     }
+  }
     // handle form submission
   };
   return (
@@ -80,6 +82,7 @@ const Login = () => {
                         className="custom-control-input"
                         id="customCheckRegister"
                         type="checkbox"
+                        rquired
                       />
                       <label
                         className="custom-control-label"
@@ -89,15 +92,17 @@ const Login = () => {
                       </label>
                     </div>
                   </Col>
-                  <Col xs="6" className="text-right">
-                    <span
-                      className="text-muted"
-                      style={{ cursor: "pointer" }}
-                      onClick={() => navigate("/forgetPassword")}
-                    >
-                      Forgot Password?
-                    </span>
-                  </Col>
+                  {
+                  // <Col xs="6" className="text-right">
+                  //   <span
+                  //     className="text-muted"
+                  //     style={{ cursor: "pointer" }}
+                  //     onClick={() => navigate("/forgetPassword")}
+                  //   >
+                  //     Forgot Password?
+                  //   </span>
+                  // </Col>
+                  }
                 </Row>
                 <div className="text-center">
                   <Button

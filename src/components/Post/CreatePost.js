@@ -25,8 +25,8 @@ const CreatePost = () => {
         } else {
           setVideoError("");
           setVideoFile(file);
-          const response =await uploadBlobVideoToFirebase(videoUrl);
-          setVideoUrl(response)
+           const response = await uploadBlobVideoToFirebase(file);
+           setVideoUrl(response);
         }
       };
     }

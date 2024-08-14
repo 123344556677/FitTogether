@@ -8,6 +8,7 @@ import { register } from "Api/Api";
 import DynamicModal from "components/Modal/Modal";
 import { getQuery } from "Api/Api";
 import { setLocalStorage } from "DynamicFunctions";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,6 +16,7 @@ const SignUp = () => {
   const [value, setValue] = useState(null);
   const [title, setTitle] = useState("");
   const [signupQuery, setSignUpQuery] = useState("");
+  const navigate=useNavigate()
   const [formValues, setFormValues] = useState(
     signupInputs.reduce((acc, input) => {
       acc[input.name] = input.value || "";
@@ -46,6 +48,7 @@ const SignUp = () => {
     };
     const response = await register(values);
     console.log(response, "response---->values");
+    if(response){
     setLocalStorage("token", response.data?.data?.token);
     setValue(response.data?.data?.token)
     if (response?.data?.data?.userType==="user") {
@@ -58,8 +61,11 @@ const SignUp = () => {
   };
       openModal();
     }
-    // Navigate('/login')
+    else{
+    navigate('/login')
+    }
   };
+}
 
   const slideVariants = {
     hidden: { x: "-100%" },
